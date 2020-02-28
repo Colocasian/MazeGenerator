@@ -12,8 +12,14 @@ cd ./MazeGenerator/src
 make
 ```
 
-To remove the build files, just execute the following from the src directory:
+To remove the build files just execute the following from the `src/` directory:
 
 ```sh
 make clean
 ```
+
+## How to use
+
+After building, an executable named `mazer` will be present in the bin
+directory. To see how to use the command, run `path/to/mazer -h` or
+`path/to/mazer --help`.

@@ -5,6 +5,31 @@
 #include <maze_def.h>
 
 int main(int argc, char *argv[]) {
+    if (argc >= 2 && (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help")) {
+        std::cout << "MazeGenerator v0.3\n" <<
+            "\n" <<
+            "usage:\n" <<
+            "  path/to/mazer <algo-name> <width> <height> [<seed>]\n" <<
+            "  path/to/mazer -h|--help\n" <<
+            "\n" <<
+            "options\n" <<
+            "  algo-name = algorithm used for maze generation\n" <<
+            "  width = width of main maze grid\n" <<
+            "  height = height of main maze grid\n" <<
+            "  seed = seed used in maze generation\n" <<
+            "        (Randomised seed is used if not provided)\n" <<
+            "  -h, --help = prints this help menu\n" <<
+            "\n" <<
+            "algo-names:\n" <<
+            "  recurse_div, " <<
+            "dfs, " <<
+            "kruskal\n" <<
+            "\n" <<
+            "example:\n" <<
+            "  ./mazer kruskal 15 10 2" <<
+            std::endl;
+        return 0;
+    }
     if (argc >= 4) {
         unsigned int width = std::stoi(argv[2]);
         unsigned int height = std::stoi(argv[3]);
