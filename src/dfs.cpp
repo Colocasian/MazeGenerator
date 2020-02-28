@@ -23,9 +23,9 @@ void dfs_gen(char *mz, const unsigned int width, const unsigned int height, cons
 
     while (!stk.empty()) {
         int at = stk.top();
+        stk.pop();
         int dir = at & 3;
         at >>= 2;
-        stk.pop();
 
         if (!getcell(visited, at)) {
             setcellon(visited, at);
