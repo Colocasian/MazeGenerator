@@ -16,7 +16,7 @@ void dfs_gen(char *mz, const unsigned int width, const unsigned int height, cons
     d[3] = 3;
 
     std::stack<int> stk;
-    int spos = 0;
+    int spos = (std::uniform_int_distribution<int>(0, ccount-1))(mt);
     stk.push(spos);
 
     char visited[(ccount+BSZ-1)/BSZ] = {0};
