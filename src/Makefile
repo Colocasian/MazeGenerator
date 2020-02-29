@@ -1,7 +1,7 @@
 PROJ = mazer
 IDIR =../include
 CC = g++
-CXXFLAGS = -I$(IDIR)
+CXXFLAGS = -I$(IDIR) -Ofast -march=native
 
 ODIR = obj
 
