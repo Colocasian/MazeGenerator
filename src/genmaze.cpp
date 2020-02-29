@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
     } else if (!strcmp(algo, "kruskal"))
         kruskal_gen(mz, x, y, seed);
     else if (!strcmp(algo, "dfs"))
-        kruskal_gen(mz, x, y, seed);
+        dfs_gen(mz, x, y, seed);
     else if (!strcmp(algo, "recurse_div"))
         recurse_div_gen(mz, x, y, seed);
     else {
