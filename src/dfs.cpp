@@ -8,6 +8,9 @@ void dfs_gen(char *mz, const unsigned int width, const unsigned int height, cons
     int ccount = width * height;
     int mzwidth = (width << 1)-1;
 
+    for (int i = 0; i < ((width-1)*height+width*(height-1) + BSZ - 1) / BSZ; i++)
+        mz[i] = (char)(0);
+
     std::mt19937 mt(seed);
     char d[4];
     d[0] = 0;

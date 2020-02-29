@@ -22,4 +22,4 @@ make clean
 
 After building, an executable named `mazer` will be present in the bin
 directory. To see how to use the command, run `path/to/mazer -h` or
-`path/to/mazer --help`.
+`path/to/mazer -h`.

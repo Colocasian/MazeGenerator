@@ -42,6 +42,9 @@ void kruskal_gen(char *mz, const unsigned int width, const unsigned int height, 
     int wcount = (width-1) * height + width * (height-1);
     int mzwidth = (width << 1) - 1;
 
+    for (int i = 0; i < (wcount + BSZ - 1) / BSZ; i++)
+        mz[i] = (char)(0);
+
     udfs cells(ccount);
 
     std::mt19937 mt(seed);
