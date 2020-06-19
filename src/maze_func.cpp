@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <maze_def.h>
+#include <MazeGenerator/maze_def.h>
 
 bool getcell(const char* mz, int cno) {
     return (bool)(mz[cno/BSZ] & (1 << (cno % BSZ)));

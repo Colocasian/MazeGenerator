@@ -1,11 +1,12 @@
 #include <algorithm>
 #include <random>
+#include <cstdlib>
 
-#include <maze_def.h>
+#include <MazeGenerator/maze_def.h>
 
 class udfs {
 private:
-    std::vector<int> p, rank;
+    int *p, *rank;
 
     int findset(int i) {
         return (p[i] == i)? i: (p[i] = findset(p[i]));
@@ -13,10 +14,12 @@ private:
 
 public:
     udfs(int n) {
-        rank.assign(n, 0);
-        p.resize(n);
-        for (int i = 0; i < n; i++)
+        rank = new int[n];
+        p = new int[n];
+        for (int i = 0; i < n; i++) {
+            rank[i] = 0;
             p[i] = i;
+        }
     }
 
     bool sameset(int i, int j) {

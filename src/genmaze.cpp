@@ -4,7 +4,7 @@
 #include <random>
 #include <unistd.h>
 
-#include <maze_def.h>
+#include <MazeGenerator/maze_def.h>
 
 int main(int argc, char* argv[]) {
     char* algo = nullptr;
@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (help) {
-        std::cout << "MazeGenerator v0.3\n" <<
+        std::cout << "MazeGenerator v0.3.2\n" <<
             "\n" <<
             "usage:\n" <<
             "  path/to/mazer -a<algo-name> -x<width> -y<height> [-s<seed>]\n" <<

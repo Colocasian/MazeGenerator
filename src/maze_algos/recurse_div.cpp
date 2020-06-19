@@ -1,7 +1,7 @@
 #include <random>
 #include <stack>
 
-#include <maze_def.h>
+#include <MazeGenerator/maze_def.h>
 
 void recurse_div_gen(char *mz, const int width, const int height, const int &seed) {
     int mzwidth = (width << 1) - 1;

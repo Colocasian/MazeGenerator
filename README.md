@@ -8,15 +8,13 @@ Just execute the following commands in the terminal
 
 ```sh
 git clone https://github.com/Colocasian/MazeGenerator.git
-cd ./MazeGenerator/src
+mkdir build
+cd build
+cmake ..
 make
 ```
 
-To remove the build files just execute the following from the `src/` directory:
-
-```sh
-make clean
-```
+To remove the build files, just remove the `src` directory
 
 ## How to use
 

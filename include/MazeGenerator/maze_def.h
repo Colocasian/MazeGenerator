@@ -1,6 +1,5 @@
 #ifndef COLOC_MAZE_DEFINITIONS
 #define COLOC_MAZE_DEFINITIONS
-#include <vector>
 
 #define BSZ (8*sizeof(char))
 

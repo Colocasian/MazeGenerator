@@ -2,7 +2,7 @@
 #include <random>
 #include <stack>
 
-#include <maze_def.h>
+#include <MazeGenerator/maze_def.h>
 
 void dfs_gen(char *mz, const unsigned int width, const unsigned int height, const unsigned int seed) {
     int ccount = width * height;
