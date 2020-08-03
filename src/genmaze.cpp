@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (help) {
-        std::cout << "MazeGenerator v0.3.2\n" <<
+        std::cout << "MazeGenerator v0.4.0\n" <<
             "\n" <<
             "usage:\n" <<
             "  path/to/mazer -a<algo-name> -x<width> -y<height> [-s<seed>]\n" <<
