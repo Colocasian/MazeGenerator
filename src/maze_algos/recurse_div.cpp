@@ -1,14 +1,14 @@
+#include <cstring>
 #include <random>
 #include <stack>
 
-#include <MazeGenerator/maze_def.h>
+#include <MazeGenerator/maze_def.hpp>
 
-void recurse_div_gen(char *mz, const int width, const int height, const int &seed) {
+void recurse_div_gen(mbit *mz, const std::size_t width, const std::size_t height, const unsigned int seed) {
     int mzwidth = (width << 1) - 1;
     int wcount = (width-1)*height + width*(height-1);
 
-    for (int i = 0; i < (wcount + BSZ - 1) / BSZ; i++)
-        mz[i] = (char)(-1);
+    std::memset(mz, (mbit)(-1), ((wcount + BSZ - 1) / BSZ) * sizeof(mbit));
 
     std::mt19937 mt(seed);
     std::stack<int> xy;

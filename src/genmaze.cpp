@@ -4,7 +4,7 @@
 #include <random>
 #include <unistd.h>
 
-#include <MazeGenerator/maze_def.h>
+#include <MazeGenerator/maze_def.hpp>
 
 int main(int argc, char* argv[]) {
     char* algo = nullptr;
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
                 help = true;
                 break;
             default:
-                abort();
+                return 1;
         }
     }
 
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 
     if (x <= 0 || y <= 0) {
         std::cerr << "Positive height & width required" << std::endl;
-        abort();
+        return 1;
     }
 
     if (!seeded)
@@ -76,16 +76,16 @@ int main(int argc, char* argv[]) {
     char mz[((x-1)*y+x*(y-1)+BSZ-1)/BSZ];
     if (algo == nullptr) {
         std::cerr << "No algorithm name provided" << std::endl;
-        abort();
-    } else if (!strcmp(algo, "kruskal"))
+        return 1;
+    } else if (!std::strcmp(algo, "kruskal"))
         kruskal_gen(mz, x, y, seed);
-    else if (!strcmp(algo, "dfs"))
+    else if (!std::strcmp(algo, "dfs"))
         dfs_gen(mz, x, y, seed);
-    else if (!strcmp(algo, "recurse_div"))
+    else if (!std::strcmp(algo, "recurse_div"))
         recurse_div_gen(mz, x, y, seed);
     else {
         std::cerr << "Invalid algorithm name" << std::endl;
-        abort();
+        return 1;
     }
 
     if (!seeded)

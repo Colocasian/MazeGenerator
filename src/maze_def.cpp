@@ -1,24 +1,24 @@
 #include <iostream>
 
-#include <MazeGenerator/maze_def.h>
+#include <MazeGenerator/maze_def.hpp>
 
-bool getcell(const char* mz, int cno) {
+bool getcell(const mbit* mz, int cno) {
     return (bool)(mz[cno/BSZ] & (1 << (cno % BSZ)));
 }
 
-void setcellon(char* mz, int cno) {
+void setcellon(mbit* mz, int cno) {
     mz[cno/BSZ] |= (1 << (cno % BSZ));
 }
 
-void setcelloff(char* mz, int cno) {
+void setcelloff(mbit* mz, int cno) {
     mz[cno/BSZ] &= ~(1 << (cno % BSZ));
 }
 
-void togcell(char* mz, int cno) {
+void togcell(mbit* mz, int cno) {
     mz[cno/BSZ] ^= (1 << (cno % BSZ));
 }
 
-void printmaze(const char* mz, int width, int height) {
+void printmaze(const mbit* mz, int width, int height) {
     int mzw = (width << 1) - 1;
     int mzh = (height << 1) - 1;
     for (int i = 0; i < mzw+1; i++)

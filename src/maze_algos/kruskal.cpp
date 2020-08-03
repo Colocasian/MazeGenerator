@@ -1,8 +1,9 @@
 #include <algorithm>
 #include <random>
 #include <cstdlib>
+#include <cstring>
 
-#include <MazeGenerator/maze_def.h>
+#include <MazeGenerator/maze_def.hpp>
 
 class udfs {
 private:
@@ -15,11 +16,10 @@ private:
 public:
     udfs(int n) {
         rank = new int[n];
+        std::memset(rank, 0, n * sizeof(int));
         p = new int[n];
-        for (int i = 0; i < n; i++) {
-            rank[i] = 0;
+        for (int i = 0; i < n; i++)
             p[i] = i;
-        }
     }
 
     bool sameset(int i, int j) {
@@ -40,13 +40,12 @@ public:
     }
 };
 
-void kruskal_gen(char *mz, const unsigned int width, const unsigned int height, const unsigned int seed) {
+void kruskal_gen(mbit *mz, const std::size_t width, const std::size_t height, const unsigned int seed) {
     int ccount = width*height;
     int wcount = (width-1) * height + width * (height-1);
     int mzwidth = (width << 1) - 1;
 
-    for (int i = 0; i < (wcount + BSZ - 1) / BSZ; i++)
-        mz[i] = (char)(0);
+    std::memset(mz, 0, ((wcount+BSZ-1)/BSZ) * sizeof(mbit));
 
     udfs cells(ccount);
 

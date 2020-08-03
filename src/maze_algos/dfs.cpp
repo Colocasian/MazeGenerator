@@ -1,18 +1,18 @@
 #include <algorithm>
+#include <cstring>
 #include <random>
 #include <stack>
 
-#include <MazeGenerator/maze_def.h>
+#include <MazeGenerator/maze_def.hpp>
 
-void dfs_gen(char *mz, const unsigned int width, const unsigned int height, const unsigned int seed) {
+void dfs_gen(mbit *mz, const std::size_t width, const std::size_t height, const unsigned int seed) {
     int ccount = width * height;
     int mzwidth = (width << 1)-1;
 
-    for (int i = 0; i < ((width-1)*height+width*(height-1) + BSZ - 1) / BSZ; i++)
-        mz[i] = (char)(0);
+    std::memset(mz, 0, (((width-1)*height+width*(height-1) + BSZ - 1) / BSZ) * sizeof(mbit));
 
     std::mt19937 mt(seed);
-    char d[4];
+    mbit d[4];
     d[0] = 0;
     d[1] = 1;
     d[2] = 2;
@@ -22,7 +22,8 @@ void dfs_gen(char *mz, const unsigned int width, const unsigned int height, cons
     int spos = (std::uniform_int_distribution<int>(0, ccount-1))(mt);
     stk.push(spos << 2);
 
-    char visited[(ccount+BSZ-1)/BSZ] = {0};
+    mbit visited[(ccount+BSZ-1)/BSZ];
+    std::memset(visited, 0, ((ccount+BSZ-1)/BSZ) * sizeof(mbit));
 
     while (!stk.empty()) {
         int at = stk.top();
