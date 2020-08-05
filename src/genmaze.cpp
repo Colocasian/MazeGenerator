@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
             "  -h = prints this help menu & terminates\n" <<
             "\n" <<
             "algo-names:\n" <<
-            "  dfs, kruskal, recurse_div\n" <<
+            "  dfs, kruskal, recurse_div, wilson\n" <<
             "\n" <<
             "example:\n" <<
             "  ./mazer -akruskal -x15 -y10 -s2\n" <<
@@ -83,6 +83,8 @@ int main(int argc, char* argv[]) {
         dfs_gen(mz, x, y, seed);
     else if (!std::strcmp(algo, "recurse_div"))
         recurse_div_gen(mz, x, y, seed);
+    else if (!std::strcmp(algo, "wilson"))
+        wilson_gen(mz, x, y, seed);
     else {
         std::cerr << "Invalid algorithm name" << std::endl;
         return 1;
