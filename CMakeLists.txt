@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(MazeGenerator VERSION 0.4.1 LANGUAGES CXX)
+project(MazeGenerator VERSION 0.5.0 LANGUAGES CXX)
 
 add_executable(mazer
-    src/genmaze.cpp src/maze_def.cpp src/maze_algos/dfs.cpp
+    src/genmaze.cpp src/maze_def.cpp src/maze_print.cpp src/maze_algos/dfs.cpp
     src/maze_algos/kruskal.cpp src/maze_algos/recurse_div.cpp
     src/maze_algos/wilson.cpp
 )
@@ -16,5 +16,5 @@ target_include_directories(mazer
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_compile_options(mazer PRIVATE -Ofast)
+target_compile_options(mazer PRIVATE -O3)
 
