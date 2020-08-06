@@ -14,7 +14,7 @@
 
 namespace po = boost::program_options;
 
-const std::string maze_version = "0.6.0";
+const std::string MZ_VERSION = "0.6.0";
 
 int error_prompt(char* argv[]) {
     std::cerr << argv[0] << ": do `mazer -h` for help" << std::endl;
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
         ("help,h", "produce help message")
     ;
 
-    po::options_description mz_desc("Maze description");
+    po::options_description mz_desc("Setting maze parameters");
     mz_desc.add_options()
         ("algo,a", po::value<std::string>(&algo), "algorithm used for maze generation")
         ("print-style,p", po::value<std::string>(&printer)->default_value("block"), "printing style used to print maze")
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
         ("seed,s", po::value<unsigned int>(&seed), "set seed (randomised if not specified)")
     ;
 
-    po::options_description cmd_line_opts;
+    po::options_description cmd_line_opts("MazeGenerator v" + MZ_VERSION);
     cmd_line_opts.add(generic).add(mz_desc);
 
     po::variables_map vm;
@@ -56,11 +56,10 @@ int main(int argc, char* argv[]) {
     po::notify(vm);
 
     if (vm.count("version")) {
-        std::cout << "Maze Generator v" << maze_version << std::endl;
+        std::cout << "Maze Generator v" << MZ_VERSION << std::endl;
         return 0;
     }
     if (vm.count("help")) {
-        std::cout << "Maze Generator v" << maze_version << std::endl;
         std::cout << cmd_line_opts << std::endl;
         return 0;
     }
