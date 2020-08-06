@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
     if (!seeded)
         seed = (std::random_device())();
 
-    char mz[((x-1)*y+x*(y-1)+BSZ-1)/BSZ];
+    mbit mz[((x-1)*y+x*(y-1)+BSZ-1)/BSZ];
     if (algo == "") {
         std::cerr << "No algorithm name provided" << std::endl;
         return 1;
