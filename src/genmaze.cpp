@@ -1,3 +1,7 @@
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/parsers.hpp>
+#include <boost/program_options/value_semantic.hpp>
+#include <boost/program_options/variables_map.hpp>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -7,6 +11,10 @@
 
 #include "MazeGenerator/maze_algos.hpp"
 #include "MazeGenerator/maze_print.hpp"
+
+namespace po = boost::program_options;
+
+const std::string maze_version = "0.6.0";
 
 int error_prompt(char* argv[]) {
     std::cerr << argv[0] << ": do `mazer -h` for help" << std::endl;
@@ -18,97 +26,54 @@ int error_prompt(char* argv[], const char* e) {
     return error_prompt(argv);
 }
 
-int help_prompt() {
-    std::cout << "MazeGenerator v0.5.0\n" <<
-        "\n" <<
-        "usage:\n" <<
-        "  path/to/mazer -a<algo-name> -x<width> -y<height> [-p<print-style>] [-s<seed>]\n" <<
-        "  path/to/mazer -h\n" <<
-        "\n" <<
-        "options\n" <<
-        "  -a = algorithm used for maze generation\n" <<
-        "  -x = width of main maze grid\n" <<
-        "  -y = height of main maze grid\n" <<
-        "  -p = printing style used to print maze\n" <<
-        "        (uses style 'block' if not specified)\n" <<
-        "  -s = seed used in maze generation\n" <<
-        "        (Randomised seed is used if not provided)\n" <<
-        "  -h = prints this help menu & terminates\n" <<
-        "\n" <<
-        "algo-name:\n" <<
-        "  dfs, kruskal, recurse_div, wilson\n" <<
-        "\n" <<
-        "print-style:\n" <<
-        "  block (default), thinwall\n" <<
-        "\n" <<
-        "example:\n" <<
-        "  ./mazer -akruskal -x15 -y10 -s2\n" <<
-        "  ./mazer -a dfs -x 20 -y 20" <<
-        std::endl;
-    return 0;
-}
-
 int main(int argc, char* argv[]) {
-    std::string algo("");
-    bool algo_spec = false;
-    std::string printer("");
-    bool printer_spec = false;
-    int x = 0;
-    bool x_spec = false;
-    int y = 0;
-    bool y_spec = false;
-    unsigned int seed = 0;
-    bool seeded = false;
-    bool help = false;
-    int c;
+    std::string algo;
+    std::string printer;
+    std::size_t x = 0;
+    std::size_t y = 0;
+    unsigned int seed;
 
-    opterr = 1;
+    po::options_description generic("Generic options");
+    generic.add_options()
+        ("version", "print version string")
+        ("help,h", "produce help message")
+    ;
 
-    while ((c = getopt(argc, argv, "a:p:x:y:s:h")) != -1) {
-        switch (c) {
-            case 'a':
-                algo_spec = true;
-                algo = std::string(optarg);
-                break;
-            case 'p':
-                printer_spec = true;
-                printer = std::string(optarg);
-                break;
-            case 'x':
-                x_spec = true;
-                x = std::stoi(optarg);
-                break;
-            case 'y':
-                y_spec = true;
-                y = std::stoi(optarg);
-                break;
-            case 's':
-                seeded = true;
-                seed = std::stoi(optarg);
-                break;
-            case 'h':
-                help = true;
-                break;
-            default:
-                return error_prompt(argv);
-        }
+    po::options_description mz_desc("Maze description");
+    mz_desc.add_options()
+        ("algo,a", po::value<std::string>(&algo), "algorithm used for maze generation")
+        ("print-style,p", po::value<std::string>(&printer)->default_value("block"), "printing style used to print maze")
+        ("width,x", po::value<std::size_t>(&x), "set width of main maze grid")
+        ("height,y", po::value<std::size_t>(&y), "set height of main maze grid")
+        ("seed,s", po::value<unsigned int>(&seed), "set seed (randomised if not specified)")
+    ;
+
+    po::options_description cmd_line_opts;
+    cmd_line_opts.add(generic).add(mz_desc);
+
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, cmd_line_opts), vm);
+    po::notify(vm);
+
+    if (vm.count("version")) {
+        std::cout << "Maze Generator v" << maze_version << std::endl;
+        return 0;
+    }
+    if (vm.count("help")) {
+        std::cout << "Maze Generator v" << maze_version << std::endl;
+        std::cout << cmd_line_opts << std::endl;
+        return 0;
     }
 
-    if (help) {
-        return help_prompt();
-    }
-
-    if (!(x_spec && y_spec))
-        return error_prompt(argv, "Dimensions not specified");
     if (x <= 0 || y <= 0)
-        return error_prompt(argv, "Non-positive dimensions not supported");
-
-    if (!seeded)
-        seed = (std::random_device())();
+        return error_prompt(argv, "invalid maze dimensions");
 
     mbit mz[((x-1)*y+x*(y-1)+BSZ-1)/BSZ];
-    if (!algo_spec)
-        return error_prompt(argv, "No algorithm name provided");
+
+    if (!vm.count("seed")) {
+        seed = (std::random_device())();
+        std::cout << "Seed used was " << seed << std::endl;
+    }
 
     if (algo == "kruskal")
         kruskal_gen(mz, x, y, seed);
@@ -121,15 +86,12 @@ int main(int argc, char* argv[]) {
     else
         return error_prompt(argv, "Invalid algorithm name");
 
-    if ((!printer_spec) || (printer == "block"))
+    if (printer == "block")
         printmaze_block(mz, x, y);
     else if (printer == "thinwall")
         printmaze_thinwall(mz, x, y);
     else
         return error_prompt(argv, "Invalid printing style");
-
-    if (!seeded)
-        std::cout << "Seed used was " << seed << std::endl;
 
     std::cout << std::flush;
 }
