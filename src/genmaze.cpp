@@ -11,10 +11,9 @@
 
 #include "MazeGenerator/maze_algos.hpp"
 #include "MazeGenerator/maze_print.hpp"
+#include "MazeGenerator/version.h"
 
 namespace po = boost::program_options;
-
-const std::string MZ_VERSION = "0.6.0";
 
 int error_prompt(char* argv[]) {
     std::cerr << argv[0] << ": do `mazer -h` for help" << std::endl;
@@ -48,7 +47,7 @@ int main(int argc, char* argv[]) {
         ("seed,s", po::value<unsigned int>(&seed), "set seed (randomised if not specified)")
     ;
 
-    po::options_description cmd_line_opts("MazeGenerator v" + MZ_VERSION);
+    po::options_description cmd_line_opts(std::string("MazeGenerator v") + MY_VERSION);
     cmd_line_opts.add(generic).add(mz_desc);
 
     po::variables_map vm;
@@ -56,7 +55,7 @@ int main(int argc, char* argv[]) {
     po::notify(vm);
 
     if (vm.count("version")) {
-        std::cout << "Maze Generator v" << MZ_VERSION << std::endl;
+        std::cout << "Maze Generator v" << MY_VERSION << std::endl;
         return 0;
     }
     if (vm.count("help")) {

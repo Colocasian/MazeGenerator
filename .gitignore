@@ -11,6 +11,7 @@ CTestTestfile.cmake
 _deps
 /build/
 .clangd/
+/include/MazeGenerator/version.h
 
 ### C++ ###
 # Prerequisites

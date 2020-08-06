@@ -2,7 +2,17 @@
 
 Various implementations of maze forming algorithms.
 
-## Build Instruction
+## Building
+
+### Requirements
+
+To compile this project, the needed components are:
+
+- Valid C++ compiler
+- CMake
+- Boost library (libboost_program_options)
+
+### Instructions
 
 Just execute the following commands in the terminal
 
