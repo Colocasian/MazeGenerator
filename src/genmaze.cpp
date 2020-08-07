@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
         ("seed,s", po::value<unsigned int>(&seed), "set seed (randomised if not specified)")
     ;
 
-    po::options_description cmd_line_opts(std::string("MazeGenerator v") + MY_VERSION);
+    po::options_description cmd_line_opts(std::string("MazeGenerator v") + MAZER_VERSION);
     cmd_line_opts.add(generic).add(mz_desc);
 
     po::variables_map vm;
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     po::notify(vm);
 
     if (vm.count("version")) {
-        std::cout << "Maze Generator v" << MY_VERSION << std::endl;
+        std::cout << "Maze Generator v" << MAZER_VERSION << std::endl;
         return 0;
     }
     if (vm.count("help")) {
