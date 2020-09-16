@@ -22,7 +22,7 @@ cd MazeGenerator
 mkdir build
 cd build
 cmake ..
-make
+cmake --build .
 ```
 
 To remove the build files, just remove the `build` directory
