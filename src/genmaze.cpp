@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
   unsigned int seed;
 
   po::options_description generic("Generic options");
-  generic.add_options()("version", "print version string")(
+  generic.add_options()("version,v", "print version string")(
       "help,h", "produce help message");
 
   po::options_description mz_desc("Setting maze parameters");

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(MazeGenerator VERSION 0.6.1 LANGUAGES CXX)
+project(MazeGenerator VERSION 0.6.2 LANGUAGES CXX)
 
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_DEBUG_LIBS OFF)
