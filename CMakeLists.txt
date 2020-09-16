@@ -32,5 +32,5 @@ target_link_libraries(mazer
         Boost::program_options
 )
 
-target_compile_options(mazer PRIVATE -O3)
+target_compile_options(mazer PRIVATE -O2 -Wall -Wextra -pedantic)
 
