@@ -81,15 +81,20 @@ int main(int argc, char *argv[]) {
     recurse_div_gen(mz, x, y, seed);
   else if (algo == "wilson")
     wilson_gen(mz, x, y, seed);
-  else
+  else {
+    delete[] mz;
     return error_prompt(argv, "Invalid algorithm name");
+  }
 
   if (printer == "block")
     printmaze_block(mz, x, y);
   else if (printer == "thinwall")
     printmaze_thinwall(mz, x, y);
-  else
+  else {
+    delete[] mz;
     return error_prompt(argv, "Invalid printing style");
+  }
 
   std::cout << std::flush;
+  delete[] mz;
 }

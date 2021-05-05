@@ -34,6 +34,11 @@ public:
       }
     }
   }
+
+  ~udfs() {
+    delete[] p;
+    delete[] rank;
+  }
 };
 
 void kruskal_gen(mbit *mz, const std::size_t width, const std::size_t height,
@@ -76,4 +81,6 @@ void kruskal_gen(mbit *mz, const std::size_t width, const std::size_t height,
       setcellon(mz, wallno);
     }
   }
+
+  delete[] wlord;
 }

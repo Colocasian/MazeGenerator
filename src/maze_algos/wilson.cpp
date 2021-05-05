@@ -128,4 +128,6 @@ void wilson_gen(mbit *mz, const std::size_t mz_w, const std::size_t mz_h,
       crt_pos = ncrt_pos;
     }
   }
+
+  delete[] partof_mz;
 }

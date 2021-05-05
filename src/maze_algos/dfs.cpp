@@ -75,4 +75,6 @@ void dfs_gen(mbit *mz, const std::size_t width, const std::size_t height,
       }
     }
   }
+
+  delete[] visited;
 }
